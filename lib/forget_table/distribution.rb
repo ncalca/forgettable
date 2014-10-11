@@ -1,10 +1,17 @@
+require 'forget_table/decrementer'
+
 module ForgetTable
 
-  # Represents a categorigal distribution composed by bins with scores.
+  # Represents a categorical distribution composed by weighted bins.
   #
   # A distribution is instantiated with the following parameters:
   # - name: the name of the distribution
-  # - redis: the redis client
+  # - redis: the redis client that will host the distribution
+  #
+  # Example of an instance:
+  #   distribution: "guitars"
+  #     bins: "fender" => 10, "gibson" => 20, "epi" => "30
+
   class Distribution
     attr_reader :name
 

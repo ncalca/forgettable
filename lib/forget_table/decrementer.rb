@@ -3,6 +3,7 @@ module ForgetTable
   # Implements the decay of values in the given distribution.
   class Decrementer
 
+    # TODO: maybe avoid passing redis here
     def initialize(redis, distribution_name, last_updated_key, hits_count_key)
       @redis = redis
       @distribution_name = distribution_name
