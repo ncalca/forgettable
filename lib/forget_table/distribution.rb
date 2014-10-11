@@ -25,14 +25,14 @@ module ForgetTable
     # - bin
     # - amount
     def increment(bin, amount)
-      @redis.zincrby(name, amount, bin)
+      redis.zincrby(name, amount, bin)
 
       # Increment the total number of hits
-      stored_bins = @redis.incrby(hits_count_key, 1)
+      stored_bins = redis.incrby(hits_count_key, 1)
 
       if stored_bins == 1
         # Set the initial timestamp if never set
-        @redis.set(last_updated_key, Time.now.to_i)
+        redis.set(last_updated_key, Time.now.to_i)
       end
     end
 
@@ -44,22 +44,22 @@ module ForgetTable
       decrement!
 
       stop_bin = (number_of_bins == -1) ? -1 : (number_of_bins - 1)
-      @redis.zrevrange(name, 0, stop_bin, options)
+      redis.zrevrange(name, 0, stop_bin, options)
     end
 
     # Returns the score for the given bin
     def score_for_bin(bin)
       decrement!
 
-      @redis.zscore(name, bin)
+      redis.zscore(name, bin)
     end
 
     def last_updated
-      @redis.get(last_updated_key)
+      redis.get(last_updated_key)
     end
 
     def hits_count
-      @redis.get(hits_count_key)
+      redis.get(hits_count_key)
     end
 
     private
@@ -82,7 +82,7 @@ module ForgetTable
     end
 
     def decrementer
-      @decrementer ||= Decrementer.new(@redis, name, last_updated_key, hits_count_key)
+      @decrementer ||= Decrementer.new(redis, name, last_updated_key, hits_count_key)
     end
   end
 end
