@@ -63,6 +63,7 @@ module ForgetTable
     end
 
     private
+    attr_reader :redis
 
     def last_updated_key
       "#{name}_t"
@@ -75,6 +76,8 @@ module ForgetTable
     end
 
     def decrement!
+      raise "Cannot find distribution #{name}" unless redis.exists(name)
+
       decrementer.run!
     end
 

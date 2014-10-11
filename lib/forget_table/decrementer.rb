@@ -12,7 +12,6 @@ module ForgetTable
     end
 
     def run!
-      raise "Cannot find distribution #{distribution_name}" unless redis.exists(distribution_name)
 
       existing_values = get_existing_values
       decremented_values = decrement(existing_values.map(&:last))
@@ -46,6 +45,6 @@ module ForgetTable
     def get_existing_values
       redis.zrevrange(distribution_name, 0, -1, with_scores: true)
     end
-
   end
+
 end

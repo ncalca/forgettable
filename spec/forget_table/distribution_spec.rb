@@ -63,6 +63,12 @@ describe ForgetTable::Distribution do
     it "accepts a with_scores parameter" do
       expect(distribution.distribution(3, with_scores: true)).to match_array([["epiphone", 10.0], ["gibson", 20.0], ["fender", 30.0]])
     end
+
+    it "raises an exception if the distribution is not stored in redis" do
+      distribution = ForgetTable::Distribution.new("foo", redis)
+
+      expect { distribution.distribution }.to raise_error
+    end
   end
 
   describe "#score_for_bin" do
@@ -70,6 +76,12 @@ describe ForgetTable::Distribution do
       distribution.increment("ibanez", 37)
 
       expect(distribution.score_for_bin("ibanez")).to eq(37)
+    end
+
+    it "raises an exception if the distribution is not stored in redis" do
+      distribution = ForgetTable::Distribution.new("foo", redis)
+
+      expect { distribution.distribution }.to raise_error
     end
   end
 end
