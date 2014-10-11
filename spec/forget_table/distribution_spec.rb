@@ -10,7 +10,7 @@ describe ForgetTable::Distribution do
   before(:each) do
     redis.flushall
     allow(ForgetTable::Decrementer).to receive(:new).and_return(decrementer)
-    allow(decrementer).to receive(:run)
+    allow(decrementer).to receive(:run!)
   end
 
   describe "#name" do
