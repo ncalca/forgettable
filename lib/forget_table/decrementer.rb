@@ -2,15 +2,14 @@ require 'forget_table/distribution_decrementer'
 
 module ForgetTable
 
-  # Implements the decay of values in the given distribution.
   class Decrementer
 
     # TODO: maybe avoid passing redis here
     def initialize(redis, last_updated_key, hits_count_key, weighted_distribution)
       @redis = redis
+      @weighted_distribution = weighted_distribution
       @last_updated_key = last_updated_key
       @hits_count_key = hits_count_key
-      @weighted_distribution = weighted_distribution
     end
 
     def run!

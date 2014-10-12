@@ -59,7 +59,8 @@ describe ForgetTable::Decrementer do
     it "stores the new values for the distribution" do
       decrementer.run!
 
-      expect(redis.zrevrange(distribution_name, 0, -1, with_scores: true)).to match_array(
+      distribution = redis.zrevrange(distribution_name, 0, -1, with_scores: true)
+      expect(distribution).to match_array(
         [
           ["fender", 10.0],
           ["gibson", 20.0],
