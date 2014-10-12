@@ -10,7 +10,7 @@ module ForgetTable
     end
 
     def run!
-      decremented_distribution = distribution_decrementer.decrement
+      decremented_distribution = distribution_decrementer.decremented_distribution
       updated_redis(decremented_distribution)
     end
 

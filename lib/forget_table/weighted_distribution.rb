@@ -1,7 +1,7 @@
 module ForgetTable
 
   class WeightedDistribution
-    attr_reader :name
+    attr_reader :name, :bins
 
     def initialize(name:, bins:)
       @name = name
@@ -22,6 +22,5 @@ module ForgetTable
 
     private
 
-    attr_reader :bins
   end
 end

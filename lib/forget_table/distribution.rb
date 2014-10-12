@@ -82,11 +82,11 @@ module ForgetTable
     end
 
     def decrementer
-      @decrementer ||= Decrementer.new(redis, name, weighted_distribution)
+      @decrementer ||= Decrementer.new(redis, weighted_distribution)
     end
 
     def weighted_distribution
-      bins = redis.zrevrange(name, 0, -1, with_scores: true)
+      bins = Hash[*redis.zrevrange(name, 0, -1, with_scores: true).flatten]
       WeightedDistribution.new(
         name: name,
         bins: bins,
