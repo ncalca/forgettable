@@ -23,6 +23,6 @@ describe ForgetTable::WeightedDistribution do
   end
 
   it "returns the total number of hits" do
-    expect(distribution.total_hits).to eq(30)
+    expect(distribution.hits_count).to eq(30)
   end
 end

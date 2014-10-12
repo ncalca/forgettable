@@ -16,7 +16,7 @@ module ForgetTable
       bins.keys
     end
 
-    def total_hits
+    def hits_count
       values.inject(:+)
     end
 
