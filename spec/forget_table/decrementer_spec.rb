@@ -12,7 +12,7 @@ describe ForgetTable::Decrementer do
   end
 
   let(:distribution_decrementer) do
-    double(:distribution_decrementer, decrement: decremented_distribution)
+    double(:distribution_decrementer, decremented_distribution: decremented_distribution)
   end
 
   let(:decremented_distribution) do
