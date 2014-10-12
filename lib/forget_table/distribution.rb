@@ -1,4 +1,5 @@
 require 'forget_table/decrementer'
+require 'forget_table/weighted_distribution'
 
 module ForgetTable
 
@@ -82,7 +83,21 @@ module ForgetTable
     end
 
     def decrementer
-      @decrementer ||= Decrementer.new(redis, name, last_updated_key, hits_count_key)
+      @decrementer ||= Decrementer.new(redis, name, last_updated_key, hits_count_key, weighted_distribution)
+    end
+
+    def get_existing_values
+      # TODO write in terms of distribution method
+      redis.zrevrange(name, 0, -1, with_scores: true)
+    end
+
+    def weighted_distribution
+      WeightedDistribution.new(
+        name: name,
+        bins: get_existing_values,
+        last_updated_key: last_updated_key,
+        hits_count_key: hits_count_key,
+      )
     end
   end
 end
