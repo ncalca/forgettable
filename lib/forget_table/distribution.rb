@@ -1,5 +1,6 @@
 require 'forget_table/decrementer'
 require 'forget_table/weighted_distribution'
+require 'forget_table/distribution_keys'
 
 module ForgetTable
 
@@ -33,7 +34,7 @@ module ForgetTable
 
       if stored_bins == 1
         # Set the initial timestamp if never set
-        redis.set(last_updated_key, Time.now.to_i)
+        redis.set(last_updated_at_key, Time.now.to_i)
       end
     end
 
@@ -56,7 +57,7 @@ module ForgetTable
     end
 
     def last_updated
-      redis.get(last_updated_key)
+      redis.get(last_updated_at_key)
     end
 
     def hits_count
@@ -66,14 +67,12 @@ module ForgetTable
     private
     attr_reader :redis
 
-    def last_updated_key
-      "#{name}_t"
+    def hits_count_key
+      distribution_keys.hits_count
     end
 
-    # Represent the redis key associated with this distribution
-    # used to count the total number of hits.
-    def hits_count_key
-      "#{name}_z"
+    def last_updated_at_key
+      distribution_keys.last_updated_at
     end
 
     def decrement!
@@ -83,21 +82,19 @@ module ForgetTable
     end
 
     def decrementer
-      @decrementer ||= Decrementer.new(redis, name, last_updated_key, hits_count_key, weighted_distribution)
-    end
-
-    def get_existing_values
-      # TODO write in terms of distribution method
-      redis.zrevrange(name, 0, -1, with_scores: true)
+      @decrementer ||= Decrementer.new(redis, name, last_updated_at_key, hits_count_key, weighted_distribution)
     end
 
     def weighted_distribution
+      bins = redis.zrevrange(name, 0, -1, with_scores: true)
       WeightedDistribution.new(
         name: name,
-        bins: get_existing_values,
-        last_updated_key: last_updated_key,
-        hits_count_key: hits_count_key,
+        bins: bins,
       )
+    end
+
+    def distribution_keys
+      DistributionKeys.new(name)
     end
   end
 end
