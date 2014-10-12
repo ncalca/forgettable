@@ -11,7 +11,7 @@ module ForgetTable
 
     def run!
       decremented_distribution = distribution_decrementer.decrement
-      run_pipeline(decremented_distribution)
+      updated_redis(decremented_distribution)
     end
 
     private
@@ -23,7 +23,7 @@ module ForgetTable
     # 2. the total number of hits for the distribution with the new count
     # 3. the last_updated_at value with the current time
 
-    def run_pipeline(distribution)
+    def updated_redis(distribution)
       redis.pipelined do
         redis.zadd(distribution.name, distribution.bins.to_a.map(&:reverse))
         redis.set(hits_count_key, distribution.hits_count)
