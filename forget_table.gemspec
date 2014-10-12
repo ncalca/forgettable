@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
     "lib/forget_table/poisson.rb",
   ]
 
-  s.add_development_dependency("rspec", "~> 2.14")
+  s.add_development_dependency("rspec", "~> 3.0.0")
   s.add_runtime_dependency("redis", "~> 3.0")
 end
 
