@@ -61,7 +61,7 @@ module ForgetTable
     end
 
     def hits_count
-      redis.get(hits_count_key)
+      redis.get(hits_count_key).to_i
     end
 
     private
