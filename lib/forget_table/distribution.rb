@@ -82,7 +82,7 @@ module ForgetTable
     end
 
     def decrementer
-      @decrementer ||= Decrementer.new(redis, name, last_updated_at_key, hits_count_key, weighted_distribution)
+      @decrementer ||= Decrementer.new(redis, name, weighted_distribution)
     end
 
     def weighted_distribution
