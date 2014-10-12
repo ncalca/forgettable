@@ -4,10 +4,12 @@ module ForgetTable
   # and produces a decayed version of the array values.
   class Decay
 
+    DEFAULT_DECAY_RATE = 0.02
+
     # - values:       an array of values to be decayed
     # - last_updated: the timestamp of the last update
     # - rate:         the rate of the decay (optional)
-    def initialize(values, last_updated, rate = 0.02)
+    def initialize(values, last_updated, rate = DEFAULT_DECAY_RATE)
       @values = values
       @last_updated = last_updated
       @rate = rate
