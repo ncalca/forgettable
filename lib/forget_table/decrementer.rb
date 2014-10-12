@@ -4,7 +4,6 @@ module ForgetTable
 
   class Decrementer
 
-    # TODO: maybe avoid passing redis here
     def initialize(redis, weighted_distribution)
       @redis = redis
       @weighted_distribution = weighted_distribution
