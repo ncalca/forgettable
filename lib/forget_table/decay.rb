@@ -27,7 +27,7 @@ module ForgetTable
     end
 
     def tau
-      current_time - last_updated
+      [current_time - last_updated, 1].max
     end
 
     def poisson(value)
