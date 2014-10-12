@@ -15,11 +15,11 @@ describe ForgetTable::WeightedDistribution do
   end
 
   it "returns the array of values" do
-    expect(distribution.values).to match_array([10, 20])
+    expect(distribution.values).to eq([10, 20])
   end
 
   it "returns the array of bin names" do
-    expect(distribution.bin_names).to match_array(["fender", "gibson"])
+    expect(distribution.bin_names).to eq(["fender", "gibson"])
   end
 
   it "returns the total number of hits" do
