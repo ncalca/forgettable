@@ -4,7 +4,7 @@ module ForgetTable
     attr_reader :average
 
     def initialize(average)
-      raise ArgumentError, "average must be a positive integer, #{average} given" if average < 1
+      raise ArgumentError, "average must be > 0 , #{average} given" if average <= 0
       @average = average
     end
 
