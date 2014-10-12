@@ -20,14 +20,15 @@ describe ForgetTable::DistributionDecrementer do
   end
 
   before do
-    allow(ForgetTable::Decay).to receive(:new).with([13, 17], "updated_at") { |arg| FakeDecay.new(arg) }
+    allow(ForgetTable::Decay).to receive(:new).with(last_updated_at) { |arg| FakeDecay.new(arg) }
   end
 
-  # Just decrement by 1
   class FakeDecay
-    attr_reader :decayed_values
-    def initialize(args)
-      @decayed_values = args.map { |v| v - 1 }
+    def initialize(*); end
+
+    # Just decrement by 1
+    def decay(value)
+      value - 1
     end
   end
 

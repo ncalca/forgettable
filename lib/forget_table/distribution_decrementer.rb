@@ -25,8 +25,8 @@ module ForgetTable
     end
 
     def decrement(values)
-      decay = Decay.new(values, last_updated_at)
-      decay.decayed_values
+      decay = Decay.new(last_updated_at)
+      values.map { |value| decay.decay(value) }
     end
   end
 end
