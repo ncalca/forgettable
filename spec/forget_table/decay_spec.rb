@@ -15,23 +15,19 @@ describe ForgetTable::Decay do
     allow(ForgetTable::Poisson).to receive(:new) { |arg| FakePoisson.new(arg) }
   end
 
-  describe "#decayed_values" do
-    it "returns new values decayed" do
+  describe "#decay" do
+    let(:decay) { ForgetTable::Decay.new(last_updated) }
+
+    it "returns new decayed value" do
       allow(Time).to receive_message_chain(:now, :to_i).and_return(110)
 
-      decay = ForgetTable::Decay.new([10, 20, 30], last_updated)
-
-
-      expect(decay.decayed_values).to eq([8, 16, 24])
+      expect(decay.decay(10)).to eq(8)
     end
 
     it "replaces negative decayed values with 1" do
       allow(Time).to receive_message_chain(:now, :to_i).and_return(500)
 
-      decay = ForgetTable::Decay.new([20], last_updated)
-
-
-      expect(decay.decayed_values).to eq([1])
+      expect(decay.decay(20)).to eq(1)
     end
   end
 end
