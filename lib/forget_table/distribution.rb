@@ -43,10 +43,14 @@ module ForgetTable
     # - number_of_bins
     # - options
     def distribution(number_of_bins = -1, options = {})
-      decrement!
+      begin
+        decrement!
 
-      stop_bin = (number_of_bins == -1) ? -1 : (number_of_bins - 1)
-      redis.zrevrange(name, 0, stop_bin, options)
+        stop_bin = (number_of_bins == -1) ? -1 : (number_of_bins - 1)
+        redis.zrevrange(name, 0, stop_bin, options)
+      rescue RuntimeError
+        {}
+      end
     end
 
     # Returns the score for the given bin
