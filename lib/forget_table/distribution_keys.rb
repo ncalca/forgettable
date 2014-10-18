@@ -8,11 +8,11 @@ module ForgetTable
     end
 
     def last_updated_at
-      "#{distribution_name}_t"
+      "#{distribution_name}/last_updated_at"
     end
 
     def hits_count
-      "#{distribution_name}_z"
+      "#{distribution_name}/hits_count"
     end
   end
 end
