@@ -64,10 +64,10 @@ describe ForgetTable::Distribution do
       expect(distribution.distribution(3, with_scores: true)).to match_array([["epiphone", 10.0], ["gibson", 20.0], ["fender", 30.0]])
     end
 
-    it "raises an exception if the distribution is not stored in redis" do
+    it "returns and empty hash if the distribution is not stored in redis" do
       distribution = ForgetTable::Distribution.new("foo", redis)
 
-      expect { distribution.distribution }.to raise_error
+      expect(distribution.distribution).to eq({})
     end
   end
 
@@ -81,7 +81,7 @@ describe ForgetTable::Distribution do
     it "raises an exception if the distribution is not stored in redis" do
       distribution = ForgetTable::Distribution.new("foo", redis)
 
-      expect { distribution.distribution }.to raise_error
+      expect{ distribution.score_for_bin("yolo") }.to raise_error
     end
   end
 end

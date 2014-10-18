@@ -4,8 +4,7 @@ describe ForgetTable::Decrementer do
 
   let(:redis) { Redis.new(port: 10000) }
   let(:distribution_name) { "guitars" }
-  let(:hits_count_key) { "guitars_z" }
-  let(:last_updated_at_key) { "guitars_t" }
+  let(:distribution_keys) { ForgetTable::DistributionKeys.new("guitars") }
 
   let(:weighted_distribution) do
     double(:weighted_distribution, name: distribution_name)
@@ -32,7 +31,7 @@ describe ForgetTable::Decrementer do
 
   before(:each) do
     redis.flushall
-    redis.set("guitars_t", 123)
+    redis.set(distribution_keys.last_updated_at, 123)
 
     allow(ForgetTable::DistributionDecrementer).to receive(:new).
       with(
@@ -45,7 +44,7 @@ describe ForgetTable::Decrementer do
     it "updates the `hits_count` key after decrementing" do
       decrementer.run!
 
-      expect(redis.get(hits_count_key).to_i).to eq(30)
+      expect(redis.get(distribution_keys.hits_count).to_i).to eq(30)
     end
 
     it "updates the timestamp" do
@@ -53,7 +52,7 @@ describe ForgetTable::Decrementer do
 
       decrementer.run!
 
-      expect(redis.get(last_updated_at_key).to_i).to eq(37)
+      expect(redis.get(distribution_keys.last_updated_at).to_i).to eq(37)
     end
 
     it "stores the new values for the distribution" do
