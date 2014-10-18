@@ -17,7 +17,7 @@ module ForgetTable
     end
 
     def hits_count
-      values.inject(:+)
+      values.inject(:+).to_i
     end
 
     private
