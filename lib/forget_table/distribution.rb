@@ -86,7 +86,7 @@ module ForgetTable
     end
 
     def decrementer
-      @decrementer ||= Decrementer.new(redis, weighted_distribution)
+      Decrementer.new(redis, weighted_distribution)
     end
 
     def weighted_distribution
