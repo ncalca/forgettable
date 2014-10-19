@@ -49,7 +49,7 @@ module ForgetTable
         stop_bin = (number_of_bins == -1) ? -1 : (number_of_bins - 1)
         redis.zrevrange(name, 0, stop_bin, options)
       rescue RuntimeError
-        {}
+        [[]]
       end
     end
 

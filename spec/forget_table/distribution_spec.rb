@@ -67,7 +67,7 @@ describe ForgetTable::Distribution do
     it "returns and empty hash if the distribution is not stored in redis" do
       distribution = ForgetTable::Distribution.new("foo", redis)
 
-      expect(distribution.distribution).to eq({})
+      expect(distribution.distribution).to eq([[]])
     end
   end
 
