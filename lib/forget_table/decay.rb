@@ -2,7 +2,7 @@ module ForgetTable
 
   class Decay
 
-    DEFAULT_DECAY_RATE = 0.02
+    DEFAULT_DECAY_RATE = 0.05
 
     # - last_updated: timestamp of the last update
     # - rate:         the rate of the decay (optional)
