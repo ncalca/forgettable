@@ -27,7 +27,7 @@ describe ForgetTable::DistributionDecrementer do
     def initialize(*); end
 
     # Just decrement by 1
-    def decay(value)
+    def decay_value(value)
       value - 1
     end
   end

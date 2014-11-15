@@ -11,9 +11,8 @@ module ForgetTable
       @rate = rate
     end
 
-    def decay(value)
-      decay = decay_constant * value
-      decayed_value = value - poisson(decay)
+    def decay_value(value)
+      decayed_value = value - decay_for(value)
       decayed_value > 0 ? decayed_value : 1
     end
 
@@ -21,10 +20,15 @@ module ForgetTable
 
     attr_reader :last_updated, :rate
 
-    def decay_constant
-      @decay_constant ||= rate * tau
+    def decay_for(value)
+      poisson(decay_factor * value)
     end
 
+    def decay_factor
+      rate * tau
+    end
+
+    # Time since last update
     def tau
       [current_time - last_updated, 1].max
     end
