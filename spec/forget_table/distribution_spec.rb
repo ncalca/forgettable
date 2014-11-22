@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'fakeredis'
 
 describe ForgetTable::Distribution do
 
