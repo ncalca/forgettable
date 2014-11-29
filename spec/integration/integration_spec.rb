@@ -4,7 +4,7 @@ require 'fakeredis'
 describe "One bin distribution" do
 
   let(:redis) { Redis.new(port: 10000) }
-  let(:distribution) { ForgetTable::Distribution.new("guitars", redis) }
+  let(:distribution) { ForgetTable::Distribution.new(name: "guitars", redis: redis) }
 
   before do
     redis.flushall
@@ -13,7 +13,7 @@ describe "One bin distribution" do
   describe "single bin" do
     context "with a single increment" do
       before do
-        distribution.increment("fender", 10)
+        distribution.increment(bin: "fender", amount: 10)
       end
 
       it "returns the only bin" do
@@ -31,9 +31,9 @@ describe "One bin distribution" do
 
     context "with multiple increment" do
       before do
-        distribution.increment("fender", 10)
-        distribution.increment("fender", 20)
-        distribution.increment("fender", 30)
+        distribution.increment(bin: "fender", amount: 10)
+        distribution.increment(bin: "fender", amount: 20)
+        distribution.increment(bin: "fender", amount: 30)
       end
 
       it "returns the only bin" do
@@ -53,8 +53,8 @@ describe "One bin distribution" do
   describe "multiple bins" do
     context "with single increment" do
       before do
-        distribution.increment("fender", 10)
-        distribution.increment("gibson", 20)
+        distribution.increment(bin: "fender", amount: 10)
+        distribution.increment(bin: "gibson", amount: 20)
       end
 
       it "returns both bins" do
