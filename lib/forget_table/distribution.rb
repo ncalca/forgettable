@@ -17,7 +17,7 @@ module ForgetTable
   class Distribution
     attr_reader :name
 
-    def initialize(name, redis)
+    def initialize(name:, redis:)
       @name = name
       @redis = redis
     end
@@ -26,7 +26,7 @@ module ForgetTable
     # params:
     # - bin
     # - amount
-    def increment(bin, amount)
+    def increment(bin:, amount: 1)
       redis.zincrby(name, amount, bin)
 
       # Increment the total number of hits
@@ -42,12 +42,12 @@ module ForgetTable
     # Params:
     # - number_of_bins
     # - options
-    def distribution(number_of_bins = -1, options = {})
+    def distribution(number_of_bins: -1, with_scores: false)
       begin
         decrement!
 
         stop_bin = (number_of_bins == -1) ? -1 : (number_of_bins - 1)
-        redis.zrevrange(name, 0, stop_bin, options)
+        redis.zrevrange(name, 0, stop_bin, with_scores: with_scores)
       rescue RuntimeError
         [[]]
       end
