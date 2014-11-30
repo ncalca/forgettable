@@ -1,18 +1,10 @@
 Forgettable
 ===========
 
+[![Build Status](https://travis-ci.org/ncalca/forgettable.svg?branch=master)](https://travis-ci.org/ncalca/forgettable) [![Code Climate](https://codeclimate.com/github/ncalca/forgettable/badges/gpa.svg)](https://codeclimate.com/github/ncalca/forgettable)
 
 Forgettable helps you find the probability of non-stationary categorical distributions.
 To put it simply, you can find the most "popular" items in a stream of events, when their popularity changes unpredictably.
-
-
-===========
-
-[![Build Status](https://travis-ci.org/ncalca/forgettable.svg?branch=master)](https://travis-ci.org/ncalca/forgettable)
-[![Code Climate](https://codeclimate.com/github/ncalca/forgettable/badges/gpa.svg)](https://codeclimate.com/github/ncalca/forgettable)
-
-===========
-
 
 
 ## Why?
@@ -74,7 +66,7 @@ popular_guitars.distribution(with_scores: true)
 You can also retrieve the score for a single bin:
 
 ```ruby
-distribution.score_for_bin("fender")
+popular_guitars.score_for_bin("fender")
 => [30]
 ```
 
