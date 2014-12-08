@@ -2,6 +2,7 @@ Forgettable
 ===========
 
 [![Build Status](https://travis-ci.org/ncalca/forgettable.svg?branch=master)](https://travis-ci.org/ncalca/forgettable) [![Code Climate](https://codeclimate.com/github/ncalca/forgettable/badges/gpa.svg)](https://codeclimate.com/github/ncalca/forgettable)
+[![Gem Version](https://badge.fury.io/rb/forget_table.svg)](http://badge.fury.io/rb/forget_table)
 
 Forgettable helps you find the probability of non-stationary categorical distributions.
 To put it simply, you can find the most "popular" items in a stream of events, when their popularity changes unpredictably.
