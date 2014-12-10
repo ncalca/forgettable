@@ -20,7 +20,9 @@ describe ForgetTable::DistributionDecrementer do
   end
 
   before do
-    allow(ForgetTable::Decay).to receive(:new).with(last_updated_at) { |arg| FakeDecay.new(arg) }
+    allow(ForgetTable::Decay).to receive(:new).with(
+      last_updated_at, ForgetTable::Configuration.decay_rate
+    ) { |arg| FakeDecay.new(arg) }
   end
 
   class FakeDecay
