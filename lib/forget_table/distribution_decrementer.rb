@@ -25,8 +25,12 @@ module ForgetTable
     end
 
     def decrement(values)
-      decay = Decay.new(last_updated_at)
+      decay = Decay.new(last_updated_at, decay_rate)
       values.map { |value| decay.decay_value(value) }
+    end
+
+    def decay_rate
+      ForgetTable::Configuration.decay_rate
     end
   end
 end
