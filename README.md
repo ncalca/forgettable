@@ -71,6 +71,17 @@ popular_guitars.score_for_bin("fender")
 => [30]
 ```
 
+###### Configuring the decay rate
+The decay rate is a float number representing "how fast" the score for an item will go down.
+The lower the decay rate the slowest will be the decrement.
+
+The decay rate can be configured using the following option:
+
+```ruby
+ForgetTable::Configuration.decay_rate = 0.01
+```
+
+If not specified this value falls back to the default one.
 
 ###### References
 - Forgettable [project page](http://bitly.github.io/forgettable/)
