@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = "forget_table"
-  s.version = "0.0.1"
+  s.version = "0.0.2"
   s.date = "2014-11-22"
   s.homepage = "https://github.com/ncalca/forgettable"
   s.summary = "Keep track of dynamically changing categorical distribution"
