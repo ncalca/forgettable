@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
 
   s.files = [
     "lib/forget_table.rb",
+    "lib/forget_table/configuration.rb",
     "lib/forget_table/decay.rb",
     "lib/forget_table/decrementer.rb",
     "lib/forget_table/distribution.rb",
